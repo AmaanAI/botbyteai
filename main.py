@@ -1,8 +1,7 @@
 import os
-import sqlite3
 import pandas as pd
 import streamlit as st
-from langchain_community.vectorstores import Chroma  # Updated import for Chroma
+from langchain.vectorstores import FAISS  # Updated import for FAISS
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.chat_message_histories import ChatMessageHistory
@@ -55,10 +54,10 @@ def load_embeddings():
 
 # Use _documents and _embeddings to prevent hashing of unhashable types
 @st.cache_resource
-def create_vectorstore(_documents, _embeddings):
+def create_faiss_vectorstore(_documents, _embeddings):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     splits = text_splitter.split_documents(_documents)
-    return Chroma.from_documents(documents=splits, embedding=_embeddings)
+    return FAISS.from_documents(splits, _embeddings)  # Use FAISS to create the vector store
 
 # Load the data once and cache it
 constitution_df = load_constitution_data()
@@ -67,7 +66,7 @@ documents = preprocess_constitution_data(constitution_df)
 
 # Load embeddings and create the vector store (cached)
 embeddings = load_embeddings()
-vectorstore = create_vectorstore(documents, embeddings)  # Notice we use the non-prefixed 'documents' here
+vectorstore = create_faiss_vectorstore(documents, embeddings)  # Use FAISS vector store
 retriever = vectorstore.as_retriever()
 
 # Set up the retriever and question-answer chain
@@ -158,7 +157,6 @@ if st.button("Submit"):
         st.write("Bot:", response["answer"])
 
 # Display chat history
-# st.write("Chat History:")
 for message in st.session_state['chat_history']:
     if isinstance(message, HumanMessage):
         st.write(f"User: {message.content}")
