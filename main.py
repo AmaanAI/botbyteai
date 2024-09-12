@@ -1,4 +1,5 @@
 import os
+import sqlite3
 import pandas as pd
 import streamlit as st
 from langchain_community.vectorstores import Chroma  # Updated import for Chroma
