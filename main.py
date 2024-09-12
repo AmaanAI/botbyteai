@@ -71,7 +71,7 @@ retriever = vectorstore.as_retriever()
 
 # Set up the retriever and question-answer chain
 system_prompt = (
-    "You are an assistant for answering questions based on the Indian Constitution. "
+    "You are an assistant that analyses news headings and articles and respond with the laws, and rules in place in the Indian Constitution. "
     "Use the following pieces of retrieved context to answer the question. "
     "If you don't know the answer, say so. Answer concisely."
     "\n\n"
