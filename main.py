@@ -35,11 +35,11 @@ st.set_page_config(
 page_bg_img = '''
 <style>
 [data-testid="stAppViewContainer"] {
-    background: url("http://www.create-design.com.au/custom-home/clean-white-polygon-backgrounds-1/");
+    background: url("E:\BotByteAI\botbyteai\resources\bg2.jpg");
     background-size: cover;
 }
 [data-testid="stSidebar"] {
-    background: url("https://www.pngegg.com/es/png-zulhd");
+    background: url("E:\BotByteAI\botbyteai\resources\sidebr.jpg");
 }
 </style>
 '''
