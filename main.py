@@ -123,7 +123,8 @@ conversational_rag_chain = RunnableWithMessageHistory(
 )
 
 # Streamlit interface
-st.title("BotByteAI (Powered by Groq)")
+st.title("BotByteAI")
+st.write("Powered by Groq")
 st.write("Ask me questions about the Indian Constitution.")
 
 # Session management
