@@ -35,11 +35,11 @@ st.set_page_config(
 page_bg_img = '''
 <style>
 [data-testid="stAppViewContainer"] {
-    background: url("E:\BotByteAI\botbyteai\resources\bg2.jpg");
+    background: url(".\resources\bg2.jpg");
     background-size: cover;
 }
 [data-testid="stSidebar"] {
-    background: url("E:\BotByteAI\botbyteai\resources\sidebr.jpg");
+    background: url(".\resources\sidebr.jpg");
 }
 </style>
 '''
