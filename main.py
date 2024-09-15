@@ -20,17 +20,59 @@ os.environ["GROQ_API_KEY"] = groq_api_key
 
 # Import Groq's LLaMA model
 from langchain_groq import ChatGroq
+
 # Initialize the LLaMA model (using the Groq API)
 llm = ChatGroq(model="llama3-8b-8192")
+
+# Set the page configuration and background image
+st.set_page_config(
+    page_title="BotByteAI",
+    layout="centered",
+    page_icon="🤖",
+)
+
+# Set a custom background using HTML/CSS
+page_bg_img = '''
+<style>
+[data-testid="stAppViewContainer"] {
+    background: url("https://www.transparenttextures.com/patterns/diamond-upholstery.png");
+    background-size: cover;
+}
+[data-testid="stSidebar"] {
+    background: url("https://www.transparenttextures.com/patterns/brushed-alum.png");
+}
+</style>
+'''
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
+# Sidebar with information
+with st.sidebar:
+    st.image("https://yourlogo.com/logo.png", use_column_width=True)  # Add your logo
+    st.title("BotByteAI")
+    st.write("""
+    **Ask questions about the Indian Constitution** using this AI-powered assistant.
+
+    This application uses advanced LLaMA models and Groq API to retrieve and answer queries.
+
+    **Designed by**:  
+    - Mohd Amaan  
+    - Mohd Ayaan  
+
+    All rights reserved © 2024
+    """)
+    st.write("---")
+
 
 # Cache the loading of data
 @st.cache_data
 def load_constitution_data():
     return pd.read_csv('constitution.csv')
 
+
 @st.cache_data
 def load_index_data():
     return pd.read_csv('index.csv', encoding='Windows-1252')
+
 
 # Preprocess the constitution data using Document objects
 @st.cache_data
@@ -45,6 +87,7 @@ def preprocess_constitution_data(df):
         documents.append(doc)
     return documents
 
+
 # Cache the embedding model and vector store
 @st.cache_resource
 def load_embeddings():
@@ -52,12 +95,14 @@ def load_embeddings():
     # Explicitly pass the model_name for HuggingFace embeddings
     return HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
+
 # Use _documents and _embeddings to prevent hashing of unhashable types
 @st.cache_resource
 def create_faiss_vectorstore(_documents, _embeddings):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     splits = text_splitter.split_documents(_documents)
     return FAISS.from_documents(splits, _embeddings)  # Use FAISS to create the vector store
+
 
 # Load the data once and cache it
 constitution_df = load_constitution_data()
@@ -78,19 +123,19 @@ system_prompt = (
     "{context}"  # This will accept the retrieved context
 )
 
-qa_prompt = ChatPromptTemplate.from_messages([
-    ("system", system_prompt),
-    ("human", "{input}")
-])
+qa_prompt = ChatPromptTemplate.from_messages([("system", system_prompt), ("human", "{input}")])
+
 
 # Cache the LLaMA model if needed
 @st.cache_resource
 def get_llm():
     return ChatGroq(model="llama3-8b-8192")
 
+
 llm = get_llm()
 
 question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
+
 
 # Create a history-aware retriever
 def create_history_aware_retriever(llm, retriever, chat_history_prompt):
@@ -102,16 +147,19 @@ def create_history_aware_retriever(llm, retriever, chat_history_prompt):
         output_messages_key="answer"
     )
 
+
 # Setup the retrieval chain
 rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
 # Memory storage for chat history
 store = {}
 
+
 def get_session_history(session_id: str) -> BaseChatMessageHistory:
     if session_id not in store:
         store[session_id] = ChatMessageHistory()
     return store[session_id]
+
 
 # Define conversational RAG chain
 conversational_rag_chain = RunnableWithMessageHistory(
@@ -124,7 +172,7 @@ conversational_rag_chain = RunnableWithMessageHistory(
 
 # Streamlit interface
 st.title("BotByteAI")
-st.write("Powered by Groq")
+st.subheader("Powered by Groq")
 st.write("Ask me questions about the Indian Constitution.")
 
 # Session management
@@ -143,17 +191,11 @@ if st.button("Submit"):
         # Get the RAG model response
         response = conversational_rag_chain.invoke(
             {"input": user_question},
-            config={
-                "configurable": {"session_id": session_id}
-            }
+            config={"configurable": {"session_id": session_id}}
         )
         # Store the query and response in chat history
         st.session_state['chat_history'].extend(
-            [
-                HumanMessage(content=user_question),
-                AIMessage(content=response["answer"])
-            ]
-        )
+            [HumanMessage(content=user_question), AIMessage(content=response["answer"])])
         # Display the response
         st.write("Bot:", response["answer"])
 
