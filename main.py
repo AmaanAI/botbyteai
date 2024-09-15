@@ -157,8 +157,8 @@ if st.button("Submit"):
         st.write("Bot:", response["answer"])
 
 # Display chat history
-for message in st.session_state['chat_history']:
-    if isinstance(message, HumanMessage):
-        st.write(f"User: {message.content}")
-    else:
-        st.write(f"Bot: {message.content}")
+# for message in st.session_state['chat_history']:
+#     if isinstance(message, HumanMessage):
+#         st.write(f"User: {message.content}")
+#     else:
+#         st.write(f"Bot: {message.content}")
