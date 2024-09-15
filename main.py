@@ -123,7 +123,7 @@ conversational_rag_chain = RunnableWithMessageHistory(
 )
 
 # Streamlit interface
-st.title("Constitution Chatbot (Powered by LLaMA via Groq)")
+st.title("BotByteAI (Powered by Groq)")
 st.write("Ask me questions about the Indian Constitution.")
 
 # Session management
