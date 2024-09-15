@@ -35,11 +35,11 @@ st.set_page_config(
 page_bg_img = '''
 <style>
 [data-testid="stAppViewContainer"] {
-    background: url("https://www.transparenttextures.com/patterns/diamond-upholstery.png");
+    background: url("http://www.create-design.com.au/custom-home/clean-white-polygon-backgrounds-1/");
     background-size: cover;
 }
 [data-testid="stSidebar"] {
-    background: url("https://www.transparenttextures.com/patterns/brushed-alum.png");
+    background: url("https://www.pngegg.com/es/png-zulhd");
 }
 </style>
 '''
