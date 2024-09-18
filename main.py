@@ -44,7 +44,7 @@ page_bg_img = '''
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 header {visibility: hidden;}
-.embeddedAppMetaInfoBar_container__DxxL1 {visibility: hidden;}
+
 </style>
 '''
 st.markdown(page_bg_img, unsafe_allow_html=True)
