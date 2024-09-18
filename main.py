@@ -47,8 +47,16 @@ header {visibility: hidden;}
 
 </style>
 '''
-st.markdown(page_bg_img, unsafe_allow_html=True)
 
+st.markdown(page_bg_img, unsafe_allow_html=True)
+hide_st_style = '''
+
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+
+'''
+st.markdown(hide_st_style, unsafe_allow_html=True)
 # Sidebar with information
 with st.sidebar:
     st.image("https://yourlogo.com/logo.png", use_column_width=True)  # Add your logo
