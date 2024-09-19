@@ -62,21 +62,21 @@ header {visibility: hidden;}
 '''
 st.markdown(hide_st_style, unsafe_allow_html=True)
 # Sidebar with information
-with st.sidebar:
-    st.image("https://yourlogo.com/logo.png", use_column_width=True)  # Add your logo
-    st.title("BotByteAI")
-    st.write("""
-    **Ask questions about the Indian Constitution** using this AI-powered assistant.
-
-    This application uses advanced LLaMA models and Groq API to retrieve and answer queries.
-
-    **Designed by**:  
-    - Mohd Amaan  
-    - Mohd Ayaan  
-
-    All rights reserved © 2024
-    """)
-    st.write("---")
+# with st.sidebar:
+#     st.image("https://yourlogo.com/logo.png", use_column_width=True)  # Add your logo
+#     st.title("BotByteAI")
+#     st.write("""
+#     **Ask questions about the Indian Constitution** using this AI-powered assistant.
+#
+#     This application uses advanced LLaMA models and Groq API to retrieve and answer queries.
+#
+#     **Designed by**:
+#     - Mohd Amaan
+#     - Mohd Ayaan
+#
+#     All rights reserved © 2024
+#     """)
+#     st.write("---")
 
 
 # Cache the loading of data
@@ -187,9 +187,9 @@ conversational_rag_chain = RunnableWithMessageHistory(
 )
 
 # Streamlit interface
-st.title("BotByteAI")
-st.subheader("Powered by Groq")
-st.write("Ask me questions about the Indian Constitution.")
+# st.title("BotByteAI")
+# st.subheader("Powered by Groq")
+# st.write("Ask me questions about the Indian Constitution.")
 
 # Session management
 session_id = st.session_state.get("session_id", "default_session")
