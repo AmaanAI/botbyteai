@@ -55,6 +55,9 @@ hide_st_style = '''
 footer {visibility: hidden;}
 header {visibility: hidden;}
 .viewerBadge_container__r5tak {display: none;}
+.viewerBadge_link__qRIco {
+    display: none !important;
+}
 </style>
 '''
 st.markdown(hide_st_style, unsafe_allow_html=True)
